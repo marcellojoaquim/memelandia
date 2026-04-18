@@ -3,3 +3,12 @@ server:
 logging:
   level:
     org.springframework.security: trace
+eureka:
+  instance:
+    hostname: ${DISCOVERY_HOST:localhost}
+    port: 8887
+  client:
+    registerWithEureka: true
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${eureka.instance.port}/eureka/

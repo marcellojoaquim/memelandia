@@ -26,4 +26,4 @@ spring:
               scopes:
                 - "openid"
                 - "profile"
-            require-authorization-consent: true
+            require-authorization-consent: false
