@@ -1,0 +1,15 @@
+server:
+  port:8887
+spring:
+  application:
+    name: discovery-server
+  config:
+    import: configserver:http://localhost:8888
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+  logging:
+    level:
+      com.netflix.eureka: OFF
+      com.netflix.discovery: OFF
