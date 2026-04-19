@@ -5,6 +5,8 @@ spring:
     import: configserver:http://localhost:8888
   cloud:
     gateway:
+      observability:
+        enabled: true
       server:
         webflux:
           routes:
@@ -17,12 +19,3 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:9000
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-  endpoint:
-    gateway:
-      access: unrestricted
