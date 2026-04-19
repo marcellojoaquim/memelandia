@@ -1,5 +1,7 @@
 server:
   port: 8084
+  error:
+    include-stacktrace: never
   wait-time-in-ms-when-sync-empty: 3000
 eureka:
   instance:
@@ -44,3 +46,12 @@ spring:
     show-sql: true
     properties:
       hibernate.format_sql: true
+      hibernate:
+        jdbc:
+          time_zone: America/Sao_Paulo
+springdoc:
+  active-layers: true
+  default-produces-media-type: application/json
+  paths-to-match: /usuarios/**
+  data-rest:
+    return-body-on-update: true

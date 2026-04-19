@@ -1,5 +1,7 @@
 server:
   port: 8887
+  error:
+    include-stacktrace: never
 eureka:
   instance:
     hostname: localhost

@@ -5,6 +5,9 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 @Entity
@@ -24,7 +27,7 @@ public class Usuario {
     @Pattern(regexp=".+@.+\\..+", message = "Insira um email válido")
     private String email;
 
-    @Column(name = "data_cadastro", nullable = false)
+    @Column(name = "data_cadastro", nullable = false, updatable = false)
     private Instant dataCadastro;
 
     public Usuario() {
@@ -41,6 +44,13 @@ public class Usuario {
         this.nome = nome;
         this.email = email;
         this.dataCadastro = dataCadastro;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        Instant now = Instant.now();
+        ZonedDateTime brasil = now.atZone(ZoneId.of("America/Sao_Paulo"));
+        this.dataCadastro = Instant.from(brasil);
     }
 
     public Long getId() {
@@ -71,7 +81,7 @@ public class Usuario {
         return dataCadastro;
     }
 
-    public void setDataCadastro(Instant dataCadastro) {
+    private void setDataCadastro(Instant dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
 
