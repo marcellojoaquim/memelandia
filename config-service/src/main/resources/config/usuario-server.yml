@@ -1,0 +1,46 @@
+server:
+  port: 8084
+  wait-time-in-ms-when-sync-empty: 3000
+eureka:
+  instance:
+    hostname: ${DISCOVERY_HOST:localhost}
+    port: 8887
+  client:
+    registerWithEureka: true
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${eureka.instance.port}/eureka/
+management:
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: "http://localhost:9411/api/v2/spans"
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    gateway:
+      access: unrestricted
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} %5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}] %m%n"
+  level:
+    org.springframework.cloud.gateway: TRACE
+    org.springframework.http.server.reactive: DEBUG
+    org.springframework.web.reactive: DEBUG
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/usuario-memelandia
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
