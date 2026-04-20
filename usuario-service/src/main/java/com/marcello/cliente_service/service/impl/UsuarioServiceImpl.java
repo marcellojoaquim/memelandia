@@ -31,7 +31,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Override
     public UsuarioDTO save(UsuarioDTO usuario) {
         if(repository.existsByEmail(usuario.getEmail())){
-            throw new BusinessException("email já está em uso.");
+            throw new BusinessException("Email já está em uso.");
         }
         var usuarioEntity = modelMapper.map(usuario, Usuario.class);
         validaDados(usuarioEntity);
@@ -46,9 +46,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
         }
 
         Usuario usuarioEncontrado = repository.findById(id)
-                .orElseThrow(() -> {new EntityNotFoundException("Usuario não encontrado");
-            return null;
-        });
+                .orElseThrow(() -> new EntityNotFoundException("Usuario não encontrado"));
 
         usuarioEncontrado.setEmail(usuarioDTO.getEmail());
         usuarioEncontrado.setNome(usuarioDTO.getNome());
@@ -67,7 +65,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Override
     public Optional<UsuarioDTO> findByEmail(String email) {
         Usuario usuario = repository.findByEmail(email)
-                .orElseThrow(() -> new EntityNotFoundException("usuario não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Usuario não encontrado"));
         var usuarioDto = modelMapper.map(usuario, UsuarioDTO.class);
         return Optional.of(usuarioDto);
     }
