@@ -42,18 +42,15 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Override
     public Optional<UsuarioDTO> findById(Long id) {
         var usuario = repository.findById(id)
-                .orElseThrow(EntityNotFoundException::new);
+                .orElseThrow(() -> new EntityNotFoundException("Usuario não encontrado"));
         var result = modelMapper.map(usuario, UsuarioDTO.class);
         return Optional.of(result);
     }
 
     @Override
     public Optional<UsuarioDTO> findByEmail(String email) {
-
-        Optional<Usuario> usuario = repository.findByEmail(email);
-        if (usuario.isEmpty()) {
-            throw new EntityNotFoundException("Usuario não encontrado");
-        }
+        Usuario usuario = repository.findByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException("usuario não encontrado"));
         var usuarioDto = modelMapper.map(usuario, UsuarioDTO.class);
         return Optional.of(usuarioDto);
     }
