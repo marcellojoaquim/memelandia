@@ -49,6 +49,11 @@ spring:
       hibernate:
         jdbc:
           time_zone: America/Sao_Paulo
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9000
 springdoc:
   active-layers: true
   default-produces-media-type: application/json

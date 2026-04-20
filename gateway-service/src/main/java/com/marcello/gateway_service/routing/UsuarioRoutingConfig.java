@@ -6,15 +6,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class RoutingConfig {
+public class UsuarioRoutingConfig {
 
     @Bean
     public RouteLocator myRoutes(RouteLocatorBuilder routeLocatorBuilder) {
         return routeLocatorBuilder
                 .routes()
-                .route("get-route", p ->
-                        p.path("/get")
-                                .filters(f -> f.addRequestHeader("Test-gatway", "Funcionando"))
-                                .uri("https://httpbin.org")).build();
+                .route("usuario-server", p ->
+                        p.path("/usuarios")
+                                .uri(""))
+                .build();
     }
 }
