@@ -40,6 +40,23 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
+    public UsuarioDTO update(Long id, UsuarioDTO usuarioDTO) {
+        if(id == null) {
+            throw new BusinessException("Informe um id valido.");
+        }
+
+        Usuario usuarioEncontrado = repository.findById(id)
+                .orElseThrow(() -> {new EntityNotFoundException("Usuario não encontrado");
+            return null;
+        });
+
+        usuarioEncontrado.setEmail(usuarioDTO.getEmail());
+        usuarioEncontrado.setNome(usuarioDTO.getNome());
+        Usuario saved = repository.save(usuarioEncontrado);
+        return modelMapper.map(saved, UsuarioDTO.class);
+    }
+
+    @Override
     public Optional<UsuarioDTO> findById(Long id) {
         var usuario = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Usuario não encontrado"));
@@ -62,6 +79,16 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 .map(usuario -> modelMapper.map(usuario, UsuarioDTO.class))
                 .collect(Collectors.toUnmodifiableList());
         return new PageImpl<>(usuariosDTO, pageable, usuarios.getTotalElements());
+    }
+
+    @Override
+    public void deletar(Long id) {
+        if(id == null) {
+            throw new IllegalArgumentException("Id não deve ser nulo");
+        }
+        Usuario usuario = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Usuario não encontrado"));
+        repository.deleteById(usuario.getId());
     }
 
     @Override

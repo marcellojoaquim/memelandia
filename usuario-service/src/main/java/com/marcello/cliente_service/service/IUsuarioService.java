@@ -10,9 +10,11 @@ import java.util.Optional;
 public interface IUsuarioService {
 
     UsuarioDTO save(UsuarioDTO usuario);
+    UsuarioDTO update(Long id, UsuarioDTO usuarioDTO);
     Optional<UsuarioDTO> findById(Long id);
     Optional<UsuarioDTO> findByEmail(String email);
     Page<UsuarioDTO> buscarTodos(Pageable pageable);
+    void deletar(Long id);
     boolean existsByEmail(String email);
 
 }
