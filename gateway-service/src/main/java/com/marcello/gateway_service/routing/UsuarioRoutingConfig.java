@@ -14,7 +14,7 @@ public class UsuarioRoutingConfig {
                 .routes()
                 .route("usuario-server", p ->
                         p.path("/usuarios")
-                                .uri(""))
+                                .uri("http://localhost:8084"))
                 .build();
     }
 }
