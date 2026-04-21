@@ -4,17 +4,25 @@ import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 
 @Configuration
 public class UsuarioRoutingConfig {
+
+    private final String SERVER_URI = "http://localhost:8084";
 
     @Bean
     public RouteLocator myRoutes(RouteLocatorBuilder routeLocatorBuilder) {
         return routeLocatorBuilder
                 .routes()
-                .route("usuario-server", p ->
+                .route("buscar-usuarios", p ->
                         p.path("/usuarios")
-                                .uri("http://localhost:8084"))
+                                .uri(SERVER_URI))
+                .route("criar-usuario", p ->
+                        p.path("/usuarios")
+                                .and()
+                                .method(HttpMethod.POST)
+                                .uri(SERVER_URI))
                 .build();
     }
 }
