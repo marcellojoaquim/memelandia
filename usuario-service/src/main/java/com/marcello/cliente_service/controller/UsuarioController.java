@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.net.URI;
 import java.util.Optional;
 
 @RestController
@@ -49,7 +50,6 @@ public class UsuarioController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     @Operation(description = "Salva um novo usuario", method = "POST")
     public ResponseEntity<UsuarioDTO> salvarUsuario(@RequestBody @Valid UsuarioDTO usuarioDTO) {
         var existis = usuarioService.existsByEmail(usuarioDTO.getEmail());
@@ -57,7 +57,8 @@ public class UsuarioController {
            throw new ResponseStatusException(
                    HttpStatus.BAD_REQUEST, "Ja existe usuario com este email");
         }
-       return ResponseEntity.ok(usuarioService.save(usuarioDTO));
+        UsuarioDTO saved = usuarioService.save(usuarioDTO);
+        return ResponseEntity.created(URI.create("/usuarios/")).body(saved);
     }
 
     @PutMapping("/{id}")
