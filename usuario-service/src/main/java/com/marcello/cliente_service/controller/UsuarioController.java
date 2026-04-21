@@ -58,7 +58,7 @@ public class UsuarioController {
                    HttpStatus.BAD_REQUEST, "Ja existe usuario com este email");
         }
         UsuarioDTO saved = usuarioService.save(usuarioDTO);
-        return ResponseEntity.created(URI.create("/usuarios/")).body(saved);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
     @PutMapping("/{id}")

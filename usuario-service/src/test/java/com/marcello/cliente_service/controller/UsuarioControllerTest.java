@@ -14,6 +14,8 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -29,16 +31,33 @@ class UsuarioControllerTest {
     private Usuario usuario;
     private UsuarioDTO usuarioDTO;
 
+
     @Test
-    void buscarTodosUsuarios() {
+    void buscarUsuarioPorEmail() throws Exception{
+        usuarioDTO = UsuarioDTO.builder()
+                .email("usuario@usuario.com")
+                .nome("Usuario Teste Funcional").build();
+        when(usuarioService.findByEmail(anyString())).thenReturn(Optional.of(usuarioDTO));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/usuarios/email?email=usuario@usuario.com")
+                .with(SecurityMockMvcRequestPostProcessors.jwt()))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.nome").value("Usuario Teste Funcional"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("usuario@usuario.com"));
     }
 
     @Test
-    void buscarUsuarioPorEmail() {
-    }
+    void buscarUsuarioPorId() throws Exception{
+        usuarioDTO = UsuarioDTO.builder()
+                .email("usuario@usuario.com")
+                .nome("Usuario Teste Funcional").build();
+        when(usuarioService.findById(anyLong())).thenReturn(Optional.of(usuarioDTO));
 
-    @Test
-    void buscarUsuarioPorId() {
+        mockMvc.perform(MockMvcRequestBuilders.get("/usuarios/1")
+                        .with(SecurityMockMvcRequestPostProcessors.jwt()))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.nome").value("Usuario Teste Funcional"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("usuario@usuario.com"));
     }
 
     @Test
@@ -69,10 +88,40 @@ class UsuarioControllerTest {
     }
 
     @Test
-    void atualizarUsuario() {
+    void atualizarUsuario() throws Exception{
+        usuarioDTO = UsuarioDTO.builder()
+                .email("usuario@usuario.com")
+                .nome("Usuario Teste Funcional").build();
+        when(usuarioService.findById(anyLong())).thenReturn(Optional.of(usuarioDTO));
+        when(usuarioService.update(anyLong(), any())).thenReturn(usuarioDTO);
+
+        String jsonBody = """
+                {
+                    "nome": "Usuario Teste Funcional",
+                    "email": "usuario@usuario.com"
+                }
+                """;
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/usuarios/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonBody)
+                        .with(SecurityMockMvcRequestPostProcessors.jwt())
+        ).andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.nome").value("Usuario Teste Funcional"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("usuario@usuario.com"));
     }
 
     @Test
-    void removerUsuario() {
+    void removerUsuario() throws Exception{
+        usuarioDTO = UsuarioDTO.builder()
+                .email("usuario@usuario.com")
+                .nome("Usuario Teste Funcional").build();
+
+        when(usuarioService.findById(anyLong())).thenReturn(Optional.of(usuarioDTO));
+        doNothing().when(usuarioService).deletar(anyLong());
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/usuarios/1")
+                        .with(SecurityMockMvcRequestPostProcessors.jwt()))
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
     }
 }
