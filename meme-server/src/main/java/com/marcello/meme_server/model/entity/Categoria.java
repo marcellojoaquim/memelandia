@@ -3,15 +3,14 @@ package com.marcello.meme_server.model.entity;
 import jakarta.persistence.*;
 
 import java.time.Instant;
-import java.time.LocalDate;
 
 @Entity
-@Table(name = "meme_tb")
-public class Meme {
+@Table(name = "categoria_tb")
+public class Categoria {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "meme_seq")
-    @SequenceGenerator(name = "meme_seq", sequenceName = "seq_meme", initialValue = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "categoria_seq")
+    @SequenceGenerator(name = "categoria_seq", sequenceName = "seq_categoria", initialValue = 1)
     private Long id;
 
     @Column(nullable = false, length = 50)
@@ -23,7 +22,6 @@ public class Meme {
     @Column(nullable = false, name = "data_cadastro")
     private Instant dataCadastro;
 
-    @ManyToOne
-    @JoinColumn(name = "categoria_id")
-    private Categoria categoria;
+    @OneToMany
+    private Meme meme;
 }
