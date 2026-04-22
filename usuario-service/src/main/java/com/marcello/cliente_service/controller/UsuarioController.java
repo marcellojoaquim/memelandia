@@ -65,12 +65,8 @@ public class UsuarioController {
     @ResponseStatus(HttpStatus.OK)
     @Operation(description = "Atualiza um usuario", method = "PUT")
     public ResponseEntity<UsuarioDTO> atualizarUsuario(@PathVariable("id") Long id, @RequestBody @Valid UsuarioDTO usuarioDTO) {
-        return usuarioService.findById(id).map(usuario -> {
-            usuario.setNome(usuarioDTO.getNome());
-            usuario.setEmail(usuarioDTO.getEmail());
-            usuarioService.save(usuario);
-            return ResponseEntity.ok(usuarioDTO);
-        }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        var atualizado = usuarioService.update(id, usuarioDTO);
+        return ResponseEntity.ok(atualizado);
     }
 
     @DeleteMapping("/{id}")

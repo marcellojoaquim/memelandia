@@ -6,6 +6,7 @@ import com.marcello.cliente_service.model.entity.Usuario;
 import com.marcello.cliente_service.repository.UsuarioRepository;
 import com.marcello.cliente_service.service.IUsuarioService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -40,6 +41,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
+    @Transactional
     public UsuarioDTO update(Long id, UsuarioDTO usuarioDTO) {
         if(id == null) {
             throw new BusinessException("Informe um id valido.");
@@ -47,6 +49,13 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
         Usuario usuarioEncontrado = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Usuario não encontrado"));
+
+        repository.findByEmail(usuarioDTO.getEmail())
+                .ifPresent(usuarioComMesmoEmail -> {
+                    if (!usuarioComMesmoEmail.getId().equals(id)) {
+                        throw new BusinessException("Este e-mail já está sendo utilizado por outro usuário.");
+                    }
+                });
 
         usuarioEncontrado.setEmail(usuarioDTO.getEmail());
         usuarioEncontrado.setNome(usuarioDTO.getNome());
