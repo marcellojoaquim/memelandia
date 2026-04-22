@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: meme-server
+  config:
+    import: configserver:http://localhost:8888
