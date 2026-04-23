@@ -3,7 +3,6 @@ package com.marcello.meme_server.model.entity;
 import jakarta.persistence.*;
 
 import java.time.Instant;
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "meme_tb")

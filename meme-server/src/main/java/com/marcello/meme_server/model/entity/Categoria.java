@@ -3,6 +3,7 @@ package com.marcello.meme_server.model.entity;
 import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.util.List;
 
 @Entity
 @Table(name = "categoria_tb")
@@ -22,6 +23,6 @@ public class Categoria {
     @Column(nullable = false, name = "data_cadastro")
     private Instant dataCadastro;
 
-    @OneToMany
-    private Meme meme;
+    @OneToMany(mappedBy = "categoria", fetch = FetchType.LAZY)
+    private List<Meme> meme;
 }

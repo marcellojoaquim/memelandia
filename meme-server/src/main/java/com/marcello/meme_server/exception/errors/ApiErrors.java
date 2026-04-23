@@ -1,5 +1,7 @@
 package com.marcello.meme_server.exception.errors;
 
+import com.marcello.meme_server.exception.BusinessException;
+import lombok.Getter;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -7,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Getter
 public class ApiErrors {
     List<String> errors;
 
