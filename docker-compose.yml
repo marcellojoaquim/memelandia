@@ -12,11 +12,12 @@ services:
   postgresdb:
     image: postgres:15-alpine
     container_name: postgres-memelandia
+    volumes:
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
     restart: always 
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: usuario-memelandia
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
   redis:

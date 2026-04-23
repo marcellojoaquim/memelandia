@@ -14,7 +14,7 @@ public class Categoria {
     @SequenceGenerator(name = "categoria_seq", sequenceName = "seq_categoria", initialValue = 1)
     private Long id;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 50, unique = true)
     private String nome;
 
     @Column(nullable = false)
