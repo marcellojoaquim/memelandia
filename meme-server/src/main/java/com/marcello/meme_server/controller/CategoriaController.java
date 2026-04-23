@@ -6,6 +6,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
@@ -21,22 +22,16 @@ public class CategoriaController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<CategoriaDTO>> buscarPorId(@PathVariable("id") Long id) {
-        try {
-            Optional<CategoriaDTO> categoriaDTO = categoriaService.buscarPorId(id);
-            return ResponseEntity.ok(categoriaDTO);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.notFound().build();
-        }
+        var categoriaDTO = categoriaService.buscarPorId(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return ResponseEntity.ok(Optional.of(categoriaDTO));
     }
 
     @GetMapping("/nome")
     public ResponseEntity<Optional<CategoriaDTO>> buscarPorNome(@RequestParam("email") String nome) {
-        try {
-            Optional<CategoriaDTO> categoriaDTO = categoriaService.bucarPorNome(nome);
-            return ResponseEntity.ok(categoriaDTO);
-        }catch (EntityNotFoundException e) {
-            return ResponseEntity.notFound().build();
-        }
+            var categoriaDTO = categoriaService.bucarPorNome(nome)
+                    .orElseThrow(() -> new EntityNotFoundException("Categoria não encontrado"));
+            return ResponseEntity.ok(Optional.of(categoriaDTO));
     }
 
     @PostMapping

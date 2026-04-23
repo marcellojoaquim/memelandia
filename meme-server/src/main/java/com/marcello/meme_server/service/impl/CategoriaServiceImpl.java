@@ -24,20 +24,15 @@ public class CategoriaServiceImpl implements CategoriaService {
 
     @Override
     public Optional<CategoriaDTO> bucarPorNome(String nome) {
-        Optional<Categoria> categoria = categoriaRepository.findByNome(nome);
-
-        if(categoria.isEmpty()) {
-            throw new EntityNotFoundException("Categoria não encontrada");
-        }
+        var categoria = categoriaRepository.findByNome(nome)
+                .orElseThrow(() -> new EntityNotFoundException("Categoria não encontrada"));
         return Optional.of(modelMapper.map(categoria, CategoriaDTO.class));
     }
 
     @Override
     public Optional<CategoriaDTO> buscarPorId(Long id) {
-        Optional<Categoria> categoria = categoriaRepository.findById(id);
-        if (categoria.isEmpty()) {
-            throw new EntityNotFoundException("Categoria não encontrada");
-        }
+        var categoria = categoriaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Categoria não encontrada"));
         return Optional.of(modelMapper.map(categoria, CategoriaDTO.class));
     }
 
