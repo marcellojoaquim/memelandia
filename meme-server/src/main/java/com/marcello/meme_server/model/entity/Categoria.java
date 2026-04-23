@@ -25,4 +25,44 @@ public class Categoria {
 
     @OneToMany(mappedBy = "categoria", fetch = FetchType.LAZY)
     private List<Meme> meme;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Instant getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(Instant dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
+
+    public List<Meme> getMeme() {
+        return meme;
+    }
+
+    public void setMeme(List<Meme> meme) {
+        this.meme = meme;
+    }
 }

@@ -1,7 +1,13 @@
 package com.marcello.meme_server.service;
 
-import org.springframework.stereotype.Service;
+import com.marcello.meme_server.model.dto.CategoriaDTO;
+import com.marcello.meme_server.model.entity.Categoria;
 
-@Service
-public class CategoriaService {
+import java.util.Optional;
+
+public interface CategoriaService {
+
+    Optional<CategoriaDTO> bucarPorNome(String nome);
+    Optional<CategoriaDTO> buscarPorId(Long id);
+    CategoriaDTO salvar(CategoriaDTO categoriaDTO);
 }
