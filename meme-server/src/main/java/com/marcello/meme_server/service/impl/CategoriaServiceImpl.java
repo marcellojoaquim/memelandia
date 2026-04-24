@@ -8,6 +8,7 @@ import com.marcello.meme_server.service.CategoriaService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -25,6 +26,7 @@ public class CategoriaServiceImpl implements CategoriaService {
     }
 
     @Override
+    @Cacheable(value = "categoria", key = "#nome")
     public Optional<CategoriaDTO> bucarPorNome(String nome) {
         var categoria = categoriaRepository.findByNome(nome)
                 .orElseThrow(() -> new EntityNotFoundException("Categoria não encontrada"));
@@ -32,6 +34,7 @@ public class CategoriaServiceImpl implements CategoriaService {
     }
 
     @Override
+    @Cacheable(value = "categoria", key = "#id")
     public Optional<CategoriaDTO> buscarPorId(Long id) {
         var categoria = categoriaRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Categoria não encontrada"));

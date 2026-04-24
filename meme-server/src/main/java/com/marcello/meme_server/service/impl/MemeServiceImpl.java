@@ -9,6 +9,7 @@ import com.marcello.meme_server.service.MemeService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -45,6 +46,7 @@ public class MemeServiceImpl implements MemeService {
     }
 
     @Override
+    @Cacheable(value = "meme", key = "#id")
     public Optional<MemeDTO> buscarPorId(Long id) {
         Meme meme = memeRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Meme não encontrado"));
@@ -60,5 +62,24 @@ public class MemeServiceImpl implements MemeService {
                 .collect(Collectors.toUnmodifiableList());
 
         return new PageImpl<>(memesDTO, pageable, memes.getTotalElements());
+    }
+
+    @Override
+    public Page<MemeDTO> findAll(Pageable pageable) {
+        Page<Meme> memes = memeRepository.findAll(pageable);
+
+        var memesDTO = memes.stream()
+                .map(meme -> modelMapper.map(meme, MemeDTO.class))
+                .collect(Collectors.toUnmodifiableList());
+
+        return new PageImpl<>(memesDTO, pageable, memes.getTotalElements());
+    }
+
+    @Override
+    public Optional<MemeDTO> findByNome(String nome) {
+        var meme = memeRepository.findByNome(nome)
+                .orElseThrow(() -> new EntityNotFoundException("Meme não encontrado."));
+
+        return Optional.of(modelMapper.map(meme, MemeDTO.class));
     }
 }

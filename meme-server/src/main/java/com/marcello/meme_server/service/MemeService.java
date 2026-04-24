@@ -1,6 +1,7 @@
 package com.marcello.meme_server.service;
 
 import com.marcello.meme_server.model.dto.MemeDTO;
+import com.marcello.meme_server.model.entity.Meme;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -11,4 +12,6 @@ public interface MemeService {
     MemeDTO salvar(MemeDTO memeDTO);
     Optional<MemeDTO> buscarPorId(Long id);
     Page<MemeDTO> findByCategoriaId(Long id, Pageable pageable);
+    Page<MemeDTO> findAll(Pageable pageable);
+    Optional<MemeDTO> findByNome(String nome);
 }

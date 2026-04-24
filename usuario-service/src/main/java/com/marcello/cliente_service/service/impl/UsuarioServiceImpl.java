@@ -8,6 +8,9 @@ import com.marcello.cliente_service.service.IUsuarioService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -64,6 +67,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
+    @Cacheable(value = "usuarios", key = "#id")
     public Optional<UsuarioDTO> findById(Long id) {
         var usuario = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Usuario não encontrado"));
@@ -72,6 +76,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
+    @Cacheable(value = "usuarios", key = "#email")
     public Optional<UsuarioDTO> findByEmail(String email) {
         Usuario usuario = repository.findByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException("Usuario não encontrado"));
@@ -89,6 +94,10 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
+    @Caching(evict = {
+            @CacheEvict(value = "usuarios", key = "#usuario.id"),
+            @CacheEvict(value = "usuarios", key = "#usuario.email")
+    })
     public void deletar(Long id) {
         if(id == null) {
             throw new IllegalArgumentException("Id não deve ser nulo");
