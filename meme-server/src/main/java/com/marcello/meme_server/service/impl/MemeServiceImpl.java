@@ -54,7 +54,7 @@ public class MemeServiceImpl implements MemeService {
     }
 
     @Override
-    public Page<MemeDTO> findByCategoriaId(Long id, Pageable pageable) {
+    public PageImpl<MemeDTO> findByCategoriaId(Long id, Pageable pageable) {
         Page<Meme> memes = memeRepository.findByCategoriaId(id, pageable);
 
         var memesDTO = memes.stream()
@@ -65,7 +65,7 @@ public class MemeServiceImpl implements MemeService {
     }
 
     @Override
-    public Page<MemeDTO> findAll(Pageable pageable) {
+    public PageImpl<MemeDTO> findAll(Pageable pageable) {
         Page<Meme> memes = memeRepository.findAll(pageable);
 
         var memesDTO = memes.stream()
@@ -81,5 +81,14 @@ public class MemeServiceImpl implements MemeService {
                 .orElseThrow(() -> new EntityNotFoundException("Meme não encontrado."));
 
         return Optional.of(modelMapper.map(meme, MemeDTO.class));
+    }
+
+    @Override
+    public PageImpl<MemeDTO> findByCategoriaNome(String nome, Pageable pageable) {
+        Page<Meme> memes = memeRepository.findByCategoriaNome(nome);
+        var memesDTO = memes.stream()
+                .map(meme -> modelMapper.map(meme, MemeDTO.class))
+                .collect(Collectors.toUnmodifiableList());
+        return new PageImpl<>(memesDTO, pageable, memes.getTotalElements());
     }
 }
