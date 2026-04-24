@@ -3,6 +3,7 @@ package com.marcello.meme_server.controller;
 import com.marcello.meme_server.model.dto.CategoriaDTO;
 import com.marcello.meme_server.service.CategoriaService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,14 +29,14 @@ public class CategoriaController {
     }
 
     @GetMapping("/nome")
-    public ResponseEntity<Optional<CategoriaDTO>> buscarPorNome(@RequestParam("email") String nome) {
+    public ResponseEntity<Optional<CategoriaDTO>> buscarPorNome(@RequestParam("nome") String nome) {
             var categoriaDTO = categoriaService.bucarPorNome(nome)
                     .orElseThrow(() -> new EntityNotFoundException("Categoria não encontrado"));
             return ResponseEntity.ok(Optional.of(categoriaDTO));
     }
 
     @PostMapping
-    public ResponseEntity<CategoriaDTO> salvar(CategoriaDTO categoriaDTO) {
+    public ResponseEntity<CategoriaDTO> salvar(@RequestBody @Valid CategoriaDTO categoriaDTO) {
         CategoriaDTO saved = categoriaService.salvar(categoriaDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }

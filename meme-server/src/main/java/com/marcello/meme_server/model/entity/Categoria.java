@@ -26,6 +26,30 @@ public class Categoria {
     @OneToMany(mappedBy = "categoria", fetch = FetchType.LAZY)
     private List<Meme> meme;
 
+    public Categoria() {
+    }
+
+    public Categoria(String nome, String descricao, Instant dataCadastro) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.dataCadastro = dataCadastro;
+    }
+
+    public Categoria(String nome, String descricao, Instant dataCadastro, List<Meme> meme) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.dataCadastro = dataCadastro;
+        this.meme = meme;
+    }
+
+    public Categoria(Long id, String nome, String descricao, Instant dataCadastro, List<Meme> meme) {
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.dataCadastro = dataCadastro;
+        this.meme = meme;
+    }
+
     public Long getId() {
         return id;
     }

@@ -1,10 +1,12 @@
 package com.marcello.meme_server.service.impl;
 
+import com.marcello.meme_server.exception.BusinessException;
 import com.marcello.meme_server.model.dto.CategoriaDTO;
 import com.marcello.meme_server.model.entity.Categoria;
 import com.marcello.meme_server.repository.CategoriaRepository;
 import com.marcello.meme_server.service.CategoriaService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -38,9 +40,24 @@ public class CategoriaServiceImpl implements CategoriaService {
 
     @Override
     public CategoriaDTO salvar(CategoriaDTO categoriaDTO) {
+        if(categoriaRepository.existsByNome(categoriaDTO.getNome())) {
+            throw new BusinessException("Já existe uma categoria com este nome");
+        }
         Categoria categoria = modelMapper.map(categoriaDTO, Categoria.class);
         categoria.setDataCadastro(Instant.now());
         Categoria saved = categoriaRepository.save(categoria);
         return modelMapper.map(saved, CategoriaDTO.class);
+    }
+
+    @Override
+    @Transactional
+    public CategoriaDTO findByNomeOrCreate(String nomeCategoria) {
+        var dataCadastro = Instant.now();
+        Categoria categoria = categoriaRepository.findByNome(nomeCategoria)
+                .orElseGet(() -> {
+                    Categoria nova = new Categoria(nomeCategoria, nomeCategoria, dataCadastro);
+                    return categoriaRepository.save(nova);
+                });
+        return modelMapper.map(categoria, CategoriaDTO.class);
     }
 }
