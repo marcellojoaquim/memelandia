@@ -3,17 +3,19 @@ package com.marcello.meme_server.service.impl;
 import com.marcello.meme_server.model.dto.MemeDTO;
 import com.marcello.meme_server.model.entity.Categoria;
 import com.marcello.meme_server.model.entity.Meme;
-import com.marcello.meme_server.repository.CategoriaRepository;
 import com.marcello.meme_server.repository.MemeRepository;
 import com.marcello.meme_server.service.CategoriaService;
 import com.marcello.meme_server.service.MemeService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
 import java.time.Instant;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class MemeServiceImpl implements MemeService {
 
@@ -47,5 +49,16 @@ public class MemeServiceImpl implements MemeService {
         Meme meme = memeRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Meme não encontrado"));
         return Optional.of(modelMapper.map(meme, MemeDTO.class));
+    }
+
+    @Override
+    public Page<MemeDTO> findByCategoriaId(Long id, Pageable pageable) {
+        Page<Meme> memes = memeRepository.findByCategoriaId(id, pageable);
+
+        var memesDTO = memes.stream()
+                .map(meme -> modelMapper.map(meme, MemeDTO.class))
+                .collect(Collectors.toUnmodifiableList());
+
+        return new PageImpl<>(memesDTO, pageable, memes.getTotalElements());
     }
 }
