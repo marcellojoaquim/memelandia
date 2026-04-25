@@ -20,5 +20,5 @@ public class MemeDTO {
 
     @NotBlank(message = "Catogoria do meme é obrigatória")
     private String nomeCategoria;
-    
+
 }
