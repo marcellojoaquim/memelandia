@@ -39,3 +39,12 @@ spring:
     mongodb:
       uri: mongodb://adm:root@localhost:27017/memelandia?authSource=admin&retryWrites=true&w=majority
       auto-index-creation: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9000
+application:
+  usuarioService:
+    url: http://localhost:8084
+    endpointConsultarUsuario: ${application.usuarioService.url}/produto
