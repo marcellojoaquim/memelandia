@@ -14,6 +14,6 @@ public interface MemeRepository extends JpaRepository<Meme, Long> {
 
     @EntityGraph(attributePaths = "categoria")
     Page<Meme> findByCategoriaId(Long id, Pageable pageable);
-    Optional<Meme> findByNome(String nome);
-    Page<Meme> findByCategoriaNome(String nome);
+    Page<Meme> findByNome(String nome, Pageable pageable);
+    Page<Meme> findByCategoriaNome(String nome, Pageable pageable);
 }

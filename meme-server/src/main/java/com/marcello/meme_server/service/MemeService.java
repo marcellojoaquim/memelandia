@@ -12,6 +12,6 @@ public interface MemeService {
     Optional<MemeDTO> buscarPorId(Long id);
     Page<MemeDTO> findByCategoriaId(Long id, Pageable pageable);
     Page<MemeDTO> findAll(Pageable pageable);
-    Optional<MemeDTO> findByNome(String nome);
+    Page<MemeDTO> findByNome(String nome, Pageable pageable);
     Page<MemeDTO> findByCategoriaNome(String nome, Pageable pageable);
 }

@@ -4,6 +4,7 @@ import com.marcello.meme_server.model.dto.MemeDTO;
 import com.marcello.meme_server.service.impl.MemeServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -38,11 +39,9 @@ public class MemeController {
     }
 
     @GetMapping("/meme")
-    @Operation(description = "Retorna um meme pelo nome")
-    public ResponseEntity<Optional<MemeDTO>> buscarPorNome(@RequestParam("nome") String nome) {
-        MemeDTO memeDTO = memeService.findByNome(nome)
-                .orElseThrow(() -> new NegativeArraySizeException("Meme não encontrado"));
-        return ResponseEntity.ok(Optional.of(memeDTO));
+    @Operation(description = "Retorna memes pelo nome")
+    public PageImpl<MemeDTO> buscarPorNome(@RequestParam("nome") String nome, Pageable pageable) {
+        return memeService.findByNome(nome, pageable);
     }
 
     @GetMapping("/categoria/{id}")
@@ -55,5 +54,12 @@ public class MemeController {
     @Operation(description = "Retorna os memes por um nome de categoria")
     public PageImpl<MemeDTO> buscarPorCategoriaNome(@RequestParam("nome") String nome, Pageable pageable) {
         return memeService.findByCategoriaNome(nome, pageable);
+    }
+
+    @PostMapping
+    @Operation(description = "Salva um meme")
+    public ResponseEntity<MemeDTO> salvar(@RequestBody @Valid MemeDTO memeDTO) {
+        MemeDTO dto = memeService.salvar(memeDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(dto);
     }
 }

@@ -13,11 +13,13 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Service
 public class MemeServiceImpl implements MemeService {
 
     private final MemeRepository memeRepository;
@@ -76,16 +78,18 @@ public class MemeServiceImpl implements MemeService {
     }
 
     @Override
-    public Optional<MemeDTO> findByNome(String nome) {
-        var meme = memeRepository.findByNome(nome)
-                .orElseThrow(() -> new EntityNotFoundException("Meme não encontrado."));
+    public PageImpl<MemeDTO> findByNome(String nome, Pageable pageable) {
+        var memes = memeRepository.findByNome(nome, pageable);
+        var memesDTO = memes.stream()
+                .map(meme -> modelMapper.map(meme, MemeDTO.class))
+                .collect(Collectors.toUnmodifiableList());
 
-        return Optional.of(modelMapper.map(meme, MemeDTO.class));
+        return new PageImpl<>(memesDTO, pageable, memes.getTotalElements());
     }
 
     @Override
     public PageImpl<MemeDTO> findByCategoriaNome(String nome, Pageable pageable) {
-        Page<Meme> memes = memeRepository.findByCategoriaNome(nome);
+        Page<Meme> memes = memeRepository.findByCategoriaNome(nome, pageable);
         var memesDTO = memes.stream()
                 .map(meme -> modelMapper.map(meme, MemeDTO.class))
                 .collect(Collectors.toUnmodifiableList());

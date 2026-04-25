@@ -55,8 +55,7 @@ spring:
         jwt:
           issuer-uri: http://localhost:9000
 springdoc:
-  active-layers: true
-  default-produces-media-type: application/json
-  paths-to-match: /usuarios/**
-  data-rest:
-    return-body-on-update: true
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html

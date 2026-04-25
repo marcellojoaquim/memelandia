@@ -20,7 +20,5 @@ public class MemeDTO {
 
     @NotBlank(message = "Catogoria do meme é obrigatória")
     private String nomeCategoria;
-
-    @NotBlank(message = "Email do usuario é obrigatório")
-    private String emailUsuario;
+    
 }
