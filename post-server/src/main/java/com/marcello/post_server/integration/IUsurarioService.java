@@ -1,11 +1,15 @@
-package com.marcello.post_server.service;
+package com.marcello.post_server.integration;
 
+import com.marcello.post_server.config.FeignConfig;
 import com.marcello.post_server.domain.entity.Usuario;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "meme", url = "${application.usuarioService.endpointConsultarUsuario}")
+@FeignClient(
+        name = "usuario-server",
+        url = "${application.usuarioService.endpointConsultarUsuario}",
+        configuration = FeignConfig.class)
 public interface IUsurarioService {
 
     @GetMapping(

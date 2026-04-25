@@ -27,6 +27,17 @@ services:
     ports:
       - "6379:6379"
     command: redis-server --appendonly yes
+  meme-rabbitmq:
+    image: rabbitmq:3-management
+    container_name: meme-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    networks:
+      - memelandia-network
   zipkin:
     image: openzipkin/zipkin:latest
     container_name: zipkin-memelandia

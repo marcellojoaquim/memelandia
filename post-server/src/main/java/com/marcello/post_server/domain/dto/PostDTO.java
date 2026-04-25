@@ -19,7 +19,7 @@ public class PostDTO {
     private String descricao;
 
     @NotBlank(message = "Informe a categoria")
-    private String categoria;
+    private String nomeCategoria;
 
     @NotBlank(message = "Informe o email do usuario")
     private String emailUsuario;

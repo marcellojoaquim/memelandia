@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
 
-@Document(collation = "posts")
+@Document(collection = "posts")
 public class Post {
 
     @Id
@@ -25,7 +25,7 @@ public class Post {
     private Instant dataPublicacao;
 
     @NotBlank
-    private String categoria;
+    private String nomeCategoria;
 
     @NotBlank
     private String emailUsuario;
@@ -33,21 +33,21 @@ public class Post {
     public Post() {
     }
 
-    public Post(String nome, String descricao, String categoria, Instant dataPublicacao, String emailUsuario) {
+    public Post(String nome, String descricao, String nomeCategoria, Instant dataPublicacao, String emailUsuario) {
         this.nome = nome;
         this.descricao = descricao;
         this.dataPublicacao = dataPublicacao;
         this.emailUsuario = emailUsuario;
-        this.categoria = categoria;
+        this.nomeCategoria = nomeCategoria;
     }
 
-    public Post(String id, String nome, String descricao, String categoria, Instant dataPublicacao, String emailUsuario) {
+    public Post(String id, String nome, String descricao, String nomeCategoria, Instant dataPublicacao, String emailUsuario) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.dataPublicacao = dataPublicacao;
         this.emailUsuario = emailUsuario;
-        this.categoria = categoria;
+        this.nomeCategoria = nomeCategoria;
     }
 
     public String getId() {
@@ -74,12 +74,12 @@ public class Post {
         this.descricao = descricao;
     }
 
-    public String getCategoria() {
-        return categoria;
+    public String getNomeCategoria() {
+        return nomeCategoria;
     }
 
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
+    public void setNomeCategoria(String nomeCategoria) {
+        this.nomeCategoria = nomeCategoria;
     }
 
     public Instant getDataPublicacao() {

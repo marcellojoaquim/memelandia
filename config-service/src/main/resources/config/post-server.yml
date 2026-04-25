@@ -47,4 +47,7 @@ spring:
 application:
   usuarioService:
     url: http://localhost:8084
-    endpointConsultarUsuario: ${application.usuarioService.url}/produto
+    endpointConsultarUsuario: ${application.usuarioService.url}/usuarios
+  memeService:
+    url: http://localhost:8085
+    endpointSalvarMeme: ${application.memeService.url}/memes

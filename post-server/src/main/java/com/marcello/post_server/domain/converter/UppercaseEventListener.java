@@ -11,8 +11,8 @@ public class UppercaseEventListener extends AbstractMongoEventListener<Post> {
     @Override
     public void onBeforeConvert(BeforeConvertEvent<Post> event) {
         Post post = event.getSource();
-        if(post.getCategoria() != null){
-            post.setCategoria(post.getCategoria().toUpperCase());
+        if(post.getNomeCategoria() != null){
+            post.setNomeCategoria(post.getNomeCategoria().toUpperCase());
         }
     }
 }
