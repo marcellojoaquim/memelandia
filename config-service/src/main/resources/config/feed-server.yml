@@ -1,0 +1,50 @@
+server:
+  port: 8082
+  error:
+    include-stacktrace: never
+  wait-time-in-ms-when-sync-empty: 3000
+eureka:
+  instance:
+    hostname: ${DISCOVERY_HOST:localhost}
+    port: 8887
+  client:
+    registerWithEureka: true
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${eureka.instance.port}/eureka/
+management:
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: "http://localhost:9411/api/v2/spans"
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    gateway:
+      access: unrestricted
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} %5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}] %m%n"
+  level:
+    org.springframework.cloud.gateway: TRACE
+    org.springframework.http.server.reactive: DEBUG
+    org.springframework.web.reactive: DEBUG
+spring:
+  data:
+    mongodb:
+      uri: mongodb://adm:root@localhost:27017/memelandia?authSource=admin&retryWrites=true&w=majority
+      auto-index-creation: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9000
+application:
+  memeService:
+    url: http://localhost:8085
+    endpointSalvarMeme: ${application.memeService.url}/memes

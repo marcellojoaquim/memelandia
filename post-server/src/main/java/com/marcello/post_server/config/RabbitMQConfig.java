@@ -15,7 +15,7 @@ public class RabbitMQConfig {
 
     public static final String NOME_FILA = "memes";
     public static final String NOME_EXCHANGE = "exchange-memes";
-    public static final String NOME_ROTA = "meme.rota.#";
+    public static final String NOME_ROTA = "meme.rota.criado";
 
     @Bean
     public Queue queue() {
