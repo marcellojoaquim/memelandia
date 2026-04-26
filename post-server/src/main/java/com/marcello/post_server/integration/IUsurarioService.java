@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface IUsurarioService {
 
     @GetMapping(
-            value = "/usuarios/email",
+            value = "/email",
             produces = "application/json",
             headers = "application/json")
     Usuario buscarUsuario(@RequestParam("email") String email);
