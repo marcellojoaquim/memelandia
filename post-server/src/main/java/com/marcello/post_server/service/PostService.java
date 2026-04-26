@@ -31,6 +31,7 @@ public class PostService {
 
         Post post = modelMapper.map(postDTO, Post.class);
         post.setDataPublicacao(Instant.now());
+
         Post saved = postRepository.save(post);
 
         MemeDTO memeDTO = modelMapper.map(saved, MemeDTO.class);
