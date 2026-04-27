@@ -2,6 +2,7 @@ package com.marcello.meme_server.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -18,6 +19,10 @@ public class SecurityConfig {
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
+                        ).permitAll()
+                        .requestMatchers(
+                                HttpMethod.POST,
+                                "/memes/**"
                         ).permitAll()
                         .requestMatchers("/actuator/health", "/actuator/info").permitAll()
                         .requestMatchers("/public/**").permitAll()
