@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMQConfig {
 
     public static final String EXCHANGER_NAME = "exchange-memes";
-    public static final String QUEUE_FEED = "fila-feed-sincronizacao";
+    public static final String QUEUE_FEED = "memes";
 
     @Bean
     Queue queueFeed() {
