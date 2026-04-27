@@ -47,4 +47,4 @@ spring:
 application:
   memeService:
     url: http://localhost:8085
-    endpointSalvarMeme: ${application.memeService.url}/memes
+    endpointSalvarMeme: ${application.memeService.url}
