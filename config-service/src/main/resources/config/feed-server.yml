@@ -48,3 +48,6 @@ application:
   memeService:
     url: http://localhost:8085
     endpointSalvarMeme: ${application.memeService.url}
+amqp:
+  queue:
+    memes: memes

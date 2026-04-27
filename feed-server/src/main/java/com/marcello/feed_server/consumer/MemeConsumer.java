@@ -19,7 +19,7 @@ public class MemeConsumer {
         this.memeClient = memeClient;
     }
 
-    @RabbitListener(queues = "${amqp.queue.memes}") // Referência ao application.properties
+    @RabbitListener(queues = "${amqp.queue.memes}")
     public void receiveMessage(@Payload MemeDTO memeDTO) {
         log.info("Meme recebido da fila para sincronização: {}", memeDTO.getNome());
 
