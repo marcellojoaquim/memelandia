@@ -16,6 +16,9 @@ public class Meme {
     @Column(nullable = false, length = 50)
     private String nome;
 
+    @Column(nullable = false, columnDefinition = "text")
+    private String url;
+
     @Column(nullable = false)
     private String descricao;
 
@@ -29,17 +32,19 @@ public class Meme {
     public Meme() {
     }
 
-    public Meme(String nome, String descricao, Instant dataCadastro, Categoria categoria) {
+    public Meme(String nome, String descricao, String url, Instant dataCadastro, Categoria categoria) {
         this.nome = nome;
         this.descricao = descricao;
         this.dataCadastro = dataCadastro;
         this.categoria = categoria;
+        this.url = url;
     }
 
-    public Meme(Long id, String nome, String descricao, Instant dataCadastro, Categoria categoria) {
+    public Meme(Long id, String nome, String descricao, String url, Instant dataCadastro, Categoria categoria) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
+        this.url = url;
         this.dataCadastro = dataCadastro;
         this.categoria = categoria;
     }
@@ -66,6 +71,14 @@ public class Meme {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public Instant getDataCadastro() {

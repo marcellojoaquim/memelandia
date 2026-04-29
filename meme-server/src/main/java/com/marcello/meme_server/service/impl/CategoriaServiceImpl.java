@@ -8,7 +8,10 @@ import com.marcello.meme_server.service.CategoriaService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -62,5 +65,15 @@ public class CategoriaServiceImpl implements CategoriaService {
                     return categoriaRepository.save(nova);
                 });
         return modelMapper.map(categoria, CategoriaDTO.class);
+    }
+
+    @Override
+    public Page<CategoriaDTO> findAll(Pageable pageable) {
+        Page<Categoria> categorias = categoriaRepository.findAll(pageable);
+        return categorias.map(categoria -> {
+            CategoriaDTO dto = new CategoriaDTO();
+            BeanUtils.copyProperties(categoria, dto);
+            return dto;
+        });
     }
 }

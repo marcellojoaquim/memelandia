@@ -7,13 +7,8 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemeDTO {
+public class CategoriaDTO {
 
     private String nome;
-
     private String descricao;
-
-    private String url;
-
-    private String nomeCategoria;
 }

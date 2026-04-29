@@ -18,6 +18,9 @@ public class PostDTO {
     @NotBlank(message = "Descricao obrigatoria")
     private String descricao;
 
+    @NotBlank(message = "Forneça uma url")
+    private String url;
+
     @NotBlank(message = "Informe a categoria")
     private String nomeCategoria;
 

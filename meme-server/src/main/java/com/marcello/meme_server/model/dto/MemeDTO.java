@@ -18,6 +18,9 @@ public class MemeDTO {
     @NotBlank(message = "Descricao do meme é obrigatório")
     private String descricao;
 
+    @NotBlank(message = "Forneça uma URL")
+    private String url;
+
     @NotBlank(message = "Catogoria do meme é obrigatória")
     private String nomeCategoria;
 

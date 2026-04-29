@@ -5,6 +5,7 @@ import com.marcello.meme_server.service.impl.MemeServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+@Slf4j
 @RestController
 @RequestMapping("/memes")
 public class MemeController {
@@ -33,6 +35,7 @@ public class MemeController {
     @GetMapping("/{id}")
     @Operation(description = "Retorna um meme por id")
     public ResponseEntity<Optional<MemeDTO>> buscarPorId(@PathVariable("id") Long id) {
+        log.info("Buscando Memes por id");
         MemeDTO memeDTO = memeService.buscarPorId(id)
                 .orElseThrow(() -> new EntityNotFoundException("Meme não encontrado para este id"));
         return ResponseEntity.ok(Optional.of(memeDTO));
@@ -41,24 +44,28 @@ public class MemeController {
     @GetMapping("/meme")
     @Operation(description = "Retorna memes pelo nome")
     public PageImpl<MemeDTO> buscarPorNome(@RequestParam("nome") String nome, Pageable pageable) {
+        log.info("Buscando Meme por nome");
         return memeService.findByNome(nome, pageable);
     }
 
     @GetMapping("/categoria/{id}")
     @Operation(description = "Buscar os memes pelo id da categoria")
     public PageImpl<MemeDTO> buscarPorCategoriaId(@PathVariable("id") Long id, Pageable pageable) {
+        log.info("Buscando Memes pelo id da categoria");
          return memeService.findByCategoriaId(id, pageable);
     }
 
     @GetMapping("/categoria-nome")
     @Operation(description = "Retorna os memes por um nome de categoria")
     public PageImpl<MemeDTO> buscarPorCategoriaNome(@RequestParam("nome") String nome, Pageable pageable) {
+        log.info("Buscando Memes por nome da categoria");
         return memeService.findByCategoriaNome(nome, pageable);
     }
 
     @PostMapping
     @Operation(description = "Salva um meme")
     public ResponseEntity<MemeDTO> salvar(@RequestBody @Valid MemeDTO memeDTO) {
+        log.info("Salvando Meme");
         MemeDTO dto = memeService.salvar(memeDTO);
         return ResponseEntity.status(HttpStatus.OK).body(dto);
     }

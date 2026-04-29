@@ -19,6 +19,9 @@ public class Post {
     private String nome;
 
     @NotBlank
+    private String url;
+
+    @NotBlank
     private String descricao;
 
     @NotNull
@@ -33,17 +36,19 @@ public class Post {
     public Post() {
     }
 
-    public Post(String nome, String descricao, String nomeCategoria, Instant dataPublicacao, String emailUsuario) {
+    public Post(String nome, String url, String descricao, String nomeCategoria, Instant dataPublicacao, String emailUsuario) {
         this.nome = nome;
+        this.url = url;
         this.descricao = descricao;
         this.dataPublicacao = dataPublicacao;
         this.emailUsuario = emailUsuario;
         this.nomeCategoria = nomeCategoria;
     }
 
-    public Post(String id, String nome, String descricao, String nomeCategoria, Instant dataPublicacao, String emailUsuario) {
+    public Post(String id, String nome, String url, String descricao, String nomeCategoria, Instant dataPublicacao, String emailUsuario) {
         this.id = id;
         this.nome = nome;
+        this.url = url;
         this.descricao = descricao;
         this.dataPublicacao = dataPublicacao;
         this.emailUsuario = emailUsuario;
@@ -72,6 +77,14 @@ public class Post {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getNomeCategoria() {

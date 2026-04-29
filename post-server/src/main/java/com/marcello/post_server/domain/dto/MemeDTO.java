@@ -13,5 +13,7 @@ public class MemeDTO {
 
     private String descricao;
 
+    private String url;
+
     private String nomeCategoria;
 }
