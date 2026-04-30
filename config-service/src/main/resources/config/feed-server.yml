@@ -39,6 +39,9 @@ spring:
     mongodb:
       uri: mongodb://adm:root@localhost:27017/memelandia?authSource=admin&retryWrites=true&w=majority
       auto-index-creation: true
+    redis:
+      host: localhost
+      port: 6379
   security:
     oauth2:
       resourceserver:
