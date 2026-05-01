@@ -29,5 +29,8 @@
 
 ## Aquitetura do projeto
 
-<p> Para este projeto esto utlizando o padrão arquitetural CQRS que é um padrão que separa as responsabilidade de leitura e escrita em modelos distintos. Com isto há um ganho de performance e otimização da escalabilidade horizontal. </p>
-<p> No caso deste projeto este padrão foi adaptado para que as postagens sejam executadas pelo microsserviço Post (post-server) enquanto que a leitura é executada e está sob a responsabilidade do microsserviço de Feed (feed-server).</p>
+<p> Para este projeto estou utlizando o padrão arquitetural CQRS que é um padrão que separa as responsabilidade de leitura e escrita em modelos distintos. Com isto há um ganho de performance e otimização da escalabilidade horizontal. </p>
+<p> No caso deste projeto este padrão foi adaptado para que as postagens sejam executadas pelo microsserviço Post (post-server) enquanto que a leitura executada está sob a responsabilidade do microsserviço de Feed (feed-server).</p>
+
+### Desenho da Arquitetura
+![Desenho da arquitetura] (utils/SystemDesign-memelandia.png)
