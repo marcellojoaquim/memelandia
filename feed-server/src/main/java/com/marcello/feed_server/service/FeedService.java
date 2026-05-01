@@ -6,6 +6,7 @@ import com.marcello.feed_server.domain.entity.Post;
 import com.marcello.feed_server.integration.IMemeService;
 import com.marcello.feed_server.repository.FeedRepository;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,7 @@ public class FeedService {
         });
     }
 
+    @Cacheable("meme-do-dia")
     public PostDTO memeDoDia() {
         Post memeDoDia = feedRepository.findMemeDoDia();
         PostDTO dto = new PostDTO();
