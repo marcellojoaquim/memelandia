@@ -33,4 +33,5 @@
 <p> No caso deste projeto este padrão foi adaptado para que as postagens sejam executadas pelo microsserviço Post (post-server) enquanto que a leitura executada está sob a responsabilidade do microsserviço de Feed (feed-server).</p>
 
 ### Desenho da Arquitetura
-![Desenho da arquitetura] (utils/SystemDesign-memelandia.png)
+
+|![Desenho da arquitetura] (utils/SystemDesign-memelandia.png)|
