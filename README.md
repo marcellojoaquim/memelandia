@@ -34,4 +34,4 @@
 
 ### Desenho da Arquitetura
 
-|![Desenho da arquitetura] (utils/SystemDesign-memelandia.png)|
+| ![Desenho da arquitetura](utils/SystemDesign-memelandia.png) |
