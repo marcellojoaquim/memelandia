@@ -1,0 +1,1080 @@
+{
+	"info": {
+		"_postman_id": "92602a1a-568b-4f40-9d95-f71c0ffcd8e3",
+		"name": "Projeto-Final-EBAC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20819029"
+	},
+	"item": [
+		{
+			"name": "Projeto-Final",
+			"item": [
+				{
+					"name": "Gateway",
+					"item": [
+						{
+							"name": "Usuario",
+							"item": [
+								{
+									"name": "Buscar-usuario-email",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://localhost:8081/usuarios/email?email=teste@exemplo.com",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8081",
+											"path": [
+												"usuarios",
+												"email"
+											],
+											"query": [
+												{
+													"key": "email",
+													"value": "teste@exemplo.com"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Cria usuario",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"nome\": \"Teste Novo Usuario\",\n  \"email\": \"teste@exemplo.com\"\n}"
+										},
+										"url": {
+											"raw": "http://localhost:8081/usuarios",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8081",
+											"path": [
+												"usuarios"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Buscar-Usuarios",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://localhost:8081/usuarios?size=10",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8081",
+											"path": [
+												"usuarios"
+											],
+											"query": [
+												{
+													"key": "size",
+													"value": "10"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Atualizar usuario",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer eyJraWQiOiJmZGMxYjMyZi03MWY2LTQ4NWYtYjZmZC1jMjMxYmNlODFlNTkiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiYXVkIjoib2lkYy1jbGllbnQiLCJuYmYiOjE3NzY4MTYwNjcsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiZXhwIjoxNzc2ODE2MzY3LCJpYXQiOjE3NzY4MTYwNjcsImp0aSI6ImFmYTBkODYwLTliMzctNDc1Yy05YjA2LWFhODc0NzIyMmYzMSJ9.boI7STxNgp6AtB_ORsfJd0kqQE73E-BhPKz4DFY4lRI4lNK_YhX8Rx1pVyU76C3Zni55m4AUdlsj4hrcBzyT3zOcXB9gdu9oLb0I5-haDZB5Vv-_z10_mQOvUJru_RFfGzseQpCIreTlJEqotHPxMctOukmRuEkyAroCQhdpHkZwaIDNkoahExe3xD9szrzTciXt3mMdD7Tw2EwmxREywuujw79XjYkAjUpptVMPKb_hLhig_PHaCr-pJsAKbFQXqyQ2ZZ67GtOstZqZ9RtattJusZ6Zpq1qHTA6Pf41DKVaoIcfxUFNtkllCwEGrJsjFEx7dnV45LNRIE3hsf3pEQ",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"nome\": \"Teste A\",\n  \"email\": \"auth@memelandia.com\"\n}"
+										},
+										"url": {
+											"raw": "http://localhost:8081/usuarios/1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8081",
+											"path": [
+												"usuarios",
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Access-Token",
+							"item": [
+								{
+									"name": "Cria access-token",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const response = pm.response.json()",
+													"",
+													"pm.response = pm.response.json()",
+													"pm.environment.set(\"token\", response.access_token);"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "secret",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "oidc-client",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/x-www-form-urlencoded"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic b2lkYy1jbGllbnQ6e25vb3B9c2VjcmV0",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "grant_type",
+													"value": "authorization_code",
+													"type": "text"
+												},
+												{
+													"key": "code",
+													"value": "alR_kb3NDwhD26wTCz8u6-ySgRuSzPUhXZk0GOMSWfakAfVzHbpDcVuuA7ftHF4Kxz7cvGHBiYTwPSiMhNsz39NiDDzCzwxoG_CFM_mfAUa59NHJ3UDdyQtdywL3xm7h",
+													"type": "text"
+												},
+												{
+													"key": "redirect_uri",
+													"value": "http://localhost:8081/login/oauth2/code/oidc-client",
+													"type": "text"
+												},
+												{
+													"key": "client_id",
+													"value": "oidc-client",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "http://localhost:9000/oauth2/token",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9000",
+											"path": [
+												"oauth2",
+												"token"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Post",
+							"item": [
+								{
+									"name": "Cria Post",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"nome\": \"Integração de Sistemas\",\n    \"descricao\": \"Tentei integrar dois sistemas e agora meu código está falando latim HAHAHAHA.\",\n    \"url\": \"meme-exemplo.com.br\",\n    \"nomeCategoria\": \"programacao\",\n    \"emailUsuario\": \"teste@exemplo.com\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8081/posts",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8081",
+											"path": [
+												"posts"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Feed",
+							"item": [
+								{
+									"name": "Feed",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://localhost:8081/feed?page=0&size=10&sort=nomeCategoria",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8081",
+											"path": [
+												"feed"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "0"
+												},
+												{
+													"key": "size",
+													"value": "10"
+												},
+												{
+													"key": "sort",
+													"value": "nomeCategoria"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Buscar-categorias",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://localhost:8081/feed/categorias?size=10&page=0&sort=nome",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8081",
+											"path": [
+												"feed",
+												"categorias"
+											],
+											"query": [
+												{
+													"key": "size",
+													"value": "10"
+												},
+												{
+													"key": "page",
+													"value": "0"
+												},
+												{
+													"key": "sort",
+													"value": "nome"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Buscar-memes-por-categoria",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://localhost:8081/feed/categoria/PROGRAMACAO",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8081",
+											"path": [
+												"feed",
+												"categoria",
+												"PROGRAMACAO"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Buscar-memes-por-email",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://localhost:8081/feed/usuario/teste@exemplo.com",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8081",
+											"path": [
+												"feed",
+												"usuario",
+												"teste@exemplo.com"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Meme-do-dia",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://localhost:8081/feed/meme-do-dia",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8081",
+											"path": [
+												"feed",
+												"meme-do-dia"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Usuarios-server",
+					"item": [
+						{
+							"name": "Buscar-todos",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJraWQiOiJmMzhlNmRmYS1hM2RkLTQxYjQtYmRlNC1mZmUzZTdlYWRhYzAiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiYXVkIjoib2lkYy1jbGllbnQiLCJuYmYiOjE3NzY2OTM1OTMsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiZXhwIjoxNzc2NjkzODkzLCJpYXQiOjE3NzY2OTM1OTMsImp0aSI6ImYyZDdjOGNkLTJjYWUtNDM2OS05ZjQxLTIzOTk2NTUyYzU3NCJ9.a2Wwl77B9Zx1Rl9cD_jBI3Q9Wnp-cEJvtxS93-mNU5XKL6KBEi1HC-0vd0O-SHMrqrRsJ3JN3cabJ5xGZHG6lGxlJVpe8z7ikZVJQQZ6lhoXbY2bpBr-t-gh8x_RGiW9RkFg2A9qZ4a8hwpARL3xhGSa0JguEe-CcYDaC1kxFeXMl_bo825qotGeOVpYCwYFWGVfybgQ7TB6fjr-dWRAyzfN2WtWZMZ4wnTxytGg4BSDdjpiFJJuT-9Q-dgFPf3pNI0nrtnv-hl7CRFJZkg6b_G1PN12ozJgybDOuk-NtPvQZVIAPQvLR-ia0JErAjqSHRB-gZroohbTKIkwLmqPOQ",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8084/usuarios?page=0&size=10&sort=nome",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8084",
+									"path": [
+										"usuarios"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "sort",
+											"value": "nome"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cria usuario",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJraWQiOiI5ZDY2MjJlMy0xNWJiLTQ2NjEtYTZjNy02M2Q4NDQ0YjgzMzYiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiYXVkIjoib2lkYy1jbGllbnQiLCJuYmYiOjE3NzcxNjk1MTEsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiZXhwIjoxNzc3MTczMTExLCJpYXQiOjE3NzcxNjk1MTEsImp0aSI6ImMzZGMzNjcyLTQ1MzgtNDQ5OS1hOWM2LWMzY2E4NDg1NWRkNiJ9.bNuEI7jUo7phxmnay7Vh0-FInfp-tOiWJ-ycAafi7ktAvg8sKTeHZ70spzo_WY8AwndL1r4GvQlSiZTwQoFoz68oQPMEFjLhZT0Rp9q6tqHcSo2YsqUVyrp4L689gxYLTjQHt0IT0ijNOSmEBgSSQqn3u69HYHw8_LryTDiMYq8sUUi6CBZpDjZk5nLV33NqklHFIqHTF4XoqJMsazq4m2DfDa5xlBWeJLFV3rATbdh-reQMrn4-2_bcmNB8TpXrjuk5Wny4h63ErKi13aeGqFAEmv9C8S7MqYk9iZtr3tFqUbkrfkfPfNEemZPEAtoSHPjy-2HS713UHs3BEPeR_A",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"nome\": \"Teste Fila RMQ\",\n  \"email\": \"usuario@email.com\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8084/usuarios",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8084",
+									"path": [
+										"usuarios"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Atualizar usuario",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJraWQiOiJmZGMxYjMyZi03MWY2LTQ4NWYtYjZmZC1jMjMxYmNlODFlNTkiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiYXVkIjoib2lkYy1jbGllbnQiLCJuYmYiOjE3NzY4MTYwNjcsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiZXhwIjoxNzc2ODE2MzY3LCJpYXQiOjE3NzY4MTYwNjcsImp0aSI6ImFmYTBkODYwLTliMzctNDc1Yy05YjA2LWFhODc0NzIyMmYzMSJ9.boI7STxNgp6AtB_ORsfJd0kqQE73E-BhPKz4DFY4lRI4lNK_YhX8Rx1pVyU76C3Zni55m4AUdlsj4hrcBzyT3zOcXB9gdu9oLb0I5-haDZB5Vv-_z10_mQOvUJru_RFfGzseQpCIreTlJEqotHPxMctOukmRuEkyAroCQhdpHkZwaIDNkoahExe3xD9szrzTciXt3mMdD7Tw2EwmxREywuujw79XjYkAjUpptVMPKb_hLhig_PHaCr-pJsAKbFQXqyQ2ZZ67GtOstZqZ9RtattJusZ6Zpq1qHTA6Pf41DKVaoIcfxUFNtkllCwEGrJsjFEx7dnV45LNRIE3hsf3pEQ",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"nome\": \"Teste A\",\n  \"email\": \"auth@memelandia.com\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8084/usuarios/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8084",
+									"path": [
+										"usuarios",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buscar-usuario-email",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJraWQiOiI5ZDY2MjJlMy0xNWJiLTQ2NjEtYTZjNy02M2Q4NDQ0YjgzMzYiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiYXVkIjoib2lkYy1jbGllbnQiLCJuYmYiOjE3NzcxNjk1MTEsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiZXhwIjoxNzc3MTczMTExLCJpYXQiOjE3NzcxNjk1MTEsImp0aSI6ImMzZGMzNjcyLTQ1MzgtNDQ5OS1hOWM2LWMzY2E4NDg1NWRkNiJ9.bNuEI7jUo7phxmnay7Vh0-FInfp-tOiWJ-ycAafi7ktAvg8sKTeHZ70spzo_WY8AwndL1r4GvQlSiZTwQoFoz68oQPMEFjLhZT0Rp9q6tqHcSo2YsqUVyrp4L689gxYLTjQHt0IT0ijNOSmEBgSSQqn3u69HYHw8_LryTDiMYq8sUUi6CBZpDjZk5nLV33NqklHFIqHTF4XoqJMsazq4m2DfDa5xlBWeJLFV3rATbdh-reQMrn4-2_bcmNB8TpXrjuk5Wny4h63ErKi13aeGqFAEmv9C8S7MqYk9iZtr3tFqUbkrfkfPfNEemZPEAtoSHPjy-2HS713UHs3BEPeR_A",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8084/usuarios/email?email=usuario@email.com",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8084",
+									"path": [
+										"usuarios",
+										"email"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "usuario@email.com"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buscar-usuario-por-id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8084/usuarios/202",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8084",
+									"path": [
+										"usuarios",
+										"202"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Meme/Categoria-server",
+					"item": [
+						{
+							"name": "Cria - Categoria",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJraWQiOiI2OGZlZmQ4My02YmNlLTQ0Y2ItOTk4OC1hZjBmYjMyN2QxN2YiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiYXVkIjoib2lkYy1jbGllbnQiLCJuYmYiOjE3NzcwNzcyNTgsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiZXhwIjoxNzc3MDgwODU4LCJpYXQiOjE3NzcwNzcyNTgsImp0aSI6ImZkODQzN2JkLTRmYjEtNDQyNy05NjBiLTkwM2VkM2Q2ODgwOCJ9.fhrWshveBoIPqAe0cee7vSsMtsokq-RKjF9Jm-2WM4HeyzpMoPBGsXocNMqWxAuAS6MKGi_z4ewzWmszzBhITtm4n95zKJbifzPKqV3Zv9K3K9HeF_dlQVwlsz7uC5asxlAuYKsdnibSNNHf0HKkpSEBoXPIG6P-0IkxZay9fYj1Peehco2rISaoKC6E3mGdli4Ge8RO_GPM9bNAS9qYHzZjFsjvUVNeFWwN7xKbWf8_T4dYUPDkDUcrDKUJpZH6UwKkZMkPYtRFhYDv6INV4S-ArpZD29zNcBkSmLOpawHpzT_TLlkBkLKopZ9hqmr1Wk9gbraelyAVQsRuJ-LWSw",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nome\": \"Categoria teste II\",\n    \"descricao\": \"esta é uma categoria para testar a criacao V2\"\n\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8085/categorias",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8085",
+									"path": [
+										"categorias"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buscar - categoria por id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJraWQiOiI2OGZlZmQ4My02YmNlLTQ0Y2ItOTk4OC1hZjBmYjMyN2QxN2YiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiYXVkIjoib2lkYy1jbGllbnQiLCJuYmYiOjE3NzcwNzcyNTgsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiZXhwIjoxNzc3MDgwODU4LCJpYXQiOjE3NzcwNzcyNTgsImp0aSI6ImZkODQzN2JkLTRmYjEtNDQyNy05NjBiLTkwM2VkM2Q2ODgwOCJ9.fhrWshveBoIPqAe0cee7vSsMtsokq-RKjF9Jm-2WM4HeyzpMoPBGsXocNMqWxAuAS6MKGi_z4ewzWmszzBhITtm4n95zKJbifzPKqV3Zv9K3K9HeF_dlQVwlsz7uC5asxlAuYKsdnibSNNHf0HKkpSEBoXPIG6P-0IkxZay9fYj1Peehco2rISaoKC6E3mGdli4Ge8RO_GPM9bNAS9qYHzZjFsjvUVNeFWwN7xKbWf8_T4dYUPDkDUcrDKUJpZH6UwKkZMkPYtRFhYDv6INV4S-ArpZD29zNcBkSmLOpawHpzT_TLlkBkLKopZ9hqmr1Wk9gbraelyAVQsRuJ-LWSw",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8085/categorias/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8085",
+									"path": [
+										"categorias",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buscar - Categoria por nome",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJraWQiOiJlNDUxNDUwMC1lOWU0LTRlNGItYWQxMi1kOTRmM2M0MjM1YmMiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiYXVkIjoib2lkYy1jbGllbnQiLCJuYmYiOjE3NzY5OTI2MjYsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiZXhwIjoxNzc2OTkyOTI2LCJpYXQiOjE3NzY5OTI2MjYsImp0aSI6IjkzNzM3NTY3LTY0YjYtNDZlMS1hMGZhLWVlNmRjYzk0M2QzOSJ9.RQpDMYkTdyzE_EAGtoSveTWwbD7bp0NvVJX7H98NWkWiH7BxDKYHghqrprPDKknSBc5rkm39CS9WC1XyTfmEGzYmkQac1lUfsWHxQEPp0mNmGazJx1XL9dMyomx5ysR4WsNDelOlBwcDHTdH_lyvdgUWtq3fdiA-jv4LuqDTRX1A19FV4idQvP0_K4S9ClPh2GwqE80YdbCP1FC0EJOiQw6ONwBzwpK1mlzowS-Aah73UgIGzkjcPEUiseSMrksXEuP4gpgynw3DzpZyOlAFac8MB349nTpZ71O7oIHHOxx7LqIaxPkfff25ljSl4DKlumvcFg5lD0_oHJPqX9FvuA",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8085/categorias/nome?email=Categoria teste II",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8085",
+									"path": [
+										"categorias",
+										"nome"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "Categoria teste II"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cria - meme",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJraWQiOiI5N2E4ZjBkYS1jZjVjLTQxYjktYjU5Yy03ZDdlN2FjOGQyODUiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiYXVkIjoib2lkYy1jbGllbnQiLCJuYmYiOjE3NzcyNTA3MDcsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiZXhwIjoxNzc3MjU0MzA3LCJpYXQiOjE3NzcyNTA3MDcsImp0aSI6ImFkMGIwMjk2LTZjMjUtNDdhOC04Mzg4LTM1OGQxOWVlNTkwMyJ9.VHm7zavVCQYe8EzgKNVT2JelMS0fVQHP0_PmKfGT4E6BS4DPFqBCfAQyEKt_n5l61CUfn7pYmLjhWRZ1TRyFno9ulY-QycQVbgtdDMlsouEbOjNu_wVWafT6SqY13E23w7Wxa2BNzOjAqyx67CyweK8GeWzaRTRpNfjXStPqRK9PJvTCbaOLTD7n7XINb-RIwsaYu0CDN2Wq1SV8z6F70wyK1Fdd4KlRvaBaj6SsWBz7Ly4HHEm_WCdwWqvD8pIDxrz2w8-HtklxTasw0XoBRaj90fJV4SvG9p5F9mozYPuWno1lZ7Vgg1MX5NV8V-o4faZngy5u5KEOq5hnQGj3Sg",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nome\": \"papa-capim\",\n    \"descricao\": \"meme do papa-capim dos meus sonhos\",\n    \"nomeCategoria\": \"Categoria teste II\",\n    \"emailUsuario\": \"email@email.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8085/memes",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8085",
+									"path": [
+										"memes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buscar-Meme-ID",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJraWQiOiI2OGZlZmQ4My02YmNlLTQ0Y2ItOTk4OC1hZjBmYjMyN2QxN2YiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiYXVkIjoib2lkYy1jbGllbnQiLCJuYmYiOjE3NzcwNzcyNTgsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiZXhwIjoxNzc3MDgwODU4LCJpYXQiOjE3NzcwNzcyNTgsImp0aSI6ImZkODQzN2JkLTRmYjEtNDQyNy05NjBiLTkwM2VkM2Q2ODgwOCJ9.fhrWshveBoIPqAe0cee7vSsMtsokq-RKjF9Jm-2WM4HeyzpMoPBGsXocNMqWxAuAS6MKGi_z4ewzWmszzBhITtm4n95zKJbifzPKqV3Zv9K3K9HeF_dlQVwlsz7uC5asxlAuYKsdnibSNNHf0HKkpSEBoXPIG6P-0IkxZay9fYj1Peehco2rISaoKC6E3mGdli4Ge8RO_GPM9bNAS9qYHzZjFsjvUVNeFWwN7xKbWf8_T4dYUPDkDUcrDKUJpZH6UwKkZMkPYtRFhYDv6INV4S-ArpZD29zNcBkSmLOpawHpzT_TLlkBkLKopZ9hqmr1Wk9gbraelyAVQsRuJ-LWSw",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8085/memes/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8085",
+									"path": [
+										"memes",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buscar-Meme-ID Copy",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJraWQiOiI2OGZlZmQ4My02YmNlLTQ0Y2ItOTk4OC1hZjBmYjMyN2QxN2YiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiYXVkIjoib2lkYy1jbGllbnQiLCJuYmYiOjE3NzcwNzcyNTgsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiZXhwIjoxNzc3MDgwODU4LCJpYXQiOjE3NzcwNzcyNTgsImp0aSI6ImZkODQzN2JkLTRmYjEtNDQyNy05NjBiLTkwM2VkM2Q2ODgwOCJ9.fhrWshveBoIPqAe0cee7vSsMtsokq-RKjF9Jm-2WM4HeyzpMoPBGsXocNMqWxAuAS6MKGi_z4ewzWmszzBhITtm4n95zKJbifzPKqV3Zv9K3K9HeF_dlQVwlsz7uC5asxlAuYKsdnibSNNHf0HKkpSEBoXPIG6P-0IkxZay9fYj1Peehco2rISaoKC6E3mGdli4Ge8RO_GPM9bNAS9qYHzZjFsjvUVNeFWwN7xKbWf8_T4dYUPDkDUcrDKUJpZH6UwKkZMkPYtRFhYDv6INV4S-ArpZD29zNcBkSmLOpawHpzT_TLlkBkLKopZ9hqmr1Wk9gbraelyAVQsRuJ-LWSw",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8085/memes/meme?nome=papa-capim",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8085",
+									"path": [
+										"memes",
+										"meme"
+									],
+									"query": [
+										{
+											"key": "nome",
+											"value": "papa-capim"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buscar-Meme-por Categoria",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJraWQiOiI2OGZlZmQ4My02YmNlLTQ0Y2ItOTk4OC1hZjBmYjMyN2QxN2YiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiYXVkIjoib2lkYy1jbGllbnQiLCJuYmYiOjE3NzcwNzcyNTgsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiZXhwIjoxNzc3MDgwODU4LCJpYXQiOjE3NzcwNzcyNTgsImp0aSI6ImZkODQzN2JkLTRmYjEtNDQyNy05NjBiLTkwM2VkM2Q2ODgwOCJ9.fhrWshveBoIPqAe0cee7vSsMtsokq-RKjF9Jm-2WM4HeyzpMoPBGsXocNMqWxAuAS6MKGi_z4ewzWmszzBhITtm4n95zKJbifzPKqV3Zv9K3K9HeF_dlQVwlsz7uC5asxlAuYKsdnibSNNHf0HKkpSEBoXPIG6P-0IkxZay9fYj1Peehco2rISaoKC6E3mGdli4Ge8RO_GPM9bNAS9qYHzZjFsjvUVNeFWwN7xKbWf8_T4dYUPDkDUcrDKUJpZH6UwKkZMkPYtRFhYDv6INV4S-ArpZD29zNcBkSmLOpawHpzT_TLlkBkLKopZ9hqmr1Wk9gbraelyAVQsRuJ-LWSw",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8085/memes/categoria/1?size=1&page=1&sort=id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8085",
+									"path": [
+										"memes",
+										"categoria",
+										"1"
+									],
+									"query": [
+										{
+											"key": "size",
+											"value": "1"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "sort",
+											"value": "id"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Post-Server",
+					"item": [
+						{
+							"name": "Cria post",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nome\": \"Integração de Sistemas\",\n    \"descricao\": \"Tentei integrar dois sistemas e agora meu código está falando latim.\",\n    \"nomeCategoria\": \"programacao\",\n    \"emailUsuario\": \"auth-dois@memelandia.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8083/posts",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Feed-server",
+					"item": [
+						{
+							"name": "Feed",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJraWQiOiI3YTNlNDA1MC0zMDY2LTRlYTQtYjI1OS0xNDUyZTY2MDFmMDUiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiYXVkIjoib2lkYy1jbGllbnQiLCJuYmYiOjE3NzcyOTIyMTksInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiZXhwIjoxNzc3Mjk1ODE5LCJpYXQiOjE3NzcyOTIyMTksImp0aSI6ImY3YTdkNzhjLWJiMDMtNDlmYS05Y2QzLTNhNGQyMzY5ZDViNSJ9.JyKGWYOEHAdNB2o2mQb1TK4casRCVYZQGLapzj805_Tgkgd3Eojrtj6_B8eVi2j-P3LC4SHQ8hPjZ-14AcbfmLYIeoJB6h4Uo-bwbiflrBg62DY8aw85iQg2ZtfUKLqOA1lesVd0EjiS9tJ_a4y89gRv2pNctPk_1ChG9yS3r1yXWVFvmD7mnL1nAuheudxNj4cQueTt_VKloxNjlDCF2fBG6wsidyzepOC36ydnmmmJJ87PEGzp8Ps0kyFmaBCANYRrpljPzDnwwya6vwsA0y6jkAEAtmz26_2g-2D_c98vmb-LqAv9FEqmYCkkTtBLpEX8gpRS-ZsWwzpXyZIzAg",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8082/feed?page=0&size=2&sort=nomeCategoria",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"feed"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "2"
+										},
+										{
+											"key": "sort",
+											"value": "nomeCategoria"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buscar-por-categoria",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8082/feed/categorias?size=10&page=0&sort=nome",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"feed",
+										"categorias"
+									],
+									"query": [
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "sort",
+											"value": "nome"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buscar-memes-por-categoria",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8082/feed/categoria/PROGRAMACAO",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"feed",
+										"categoria",
+										"PROGRAMACAO"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buscar-memes-por-email",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8082/feed/usuario/marcello@exemplo.com",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"feed",
+										"usuario",
+										"marcello@exemplo.com"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Meme-do-dia",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8082/feed/meme-do-dia",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"feed",
+										"meme-do-dia"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
