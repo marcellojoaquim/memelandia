@@ -1,5 +1,11 @@
 server:
   port: 9000
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/usuario-credenciais
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres
 logging:
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} %5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}] %m%n"
