@@ -70,7 +70,7 @@ Trade-off:
 
 ### Desenho da Arquitetura
 
-![Desenho da arquitetura](utils/SystemDesign-memelandia.png)
+![Desenho da arquitetura](utils/SystemDesign-Memelandia.png)
 
 ### Fluxo de criação de um meme
 
